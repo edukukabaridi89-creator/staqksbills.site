@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" type="image/png" href="images/logo.png">
+<script defer src="js/products.js"></script>
+<script defer src="js/cart.js"></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">StaqksBills<sup>®</sup></div>
+  <ul class="navlinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#shop">Products</a></li>
+  </ul>
+  <a href="cart.html" class="cart">🛒</a>
+</nav>
+
+<section class="cart-section">
+  <h2>Your Cart</h2>
+
+  <div id="cartContainer"></div>
+  <h3>Total: <span id="cartTotal">$0.00</span></h3>
+
+  <button id="checkoutBtn">Proceed to Checkout</button>
+</section>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="checkout-modal" style="display:none;">
+  <h3>Checkout Details</h3>
+  <p id="checkoutMessage"></p>
+  <button id="copyAddressBtn">Copy Payment Info</button>
+  <button onclick="closeCheckoutModal()">Close</button>
+</div>
+
+<!-- Floating Telegram Chat -->
+<a href="https://t.me/StaqksBills2" class="telegram-float" onclick="window.location.href=this.href">
+  🟢 Live chat with us...
+</a>
+
+</div>
+</body>
+</html>
