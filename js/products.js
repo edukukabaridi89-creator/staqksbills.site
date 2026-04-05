@@ -9,42 +9,42 @@ const products = [
     category: "Category A"
   },
   {
-    id: 1,
+    id: 2,
     name: "$2,000 worth of 20's",
     price: 100,
     image: "images/20_2000.jpg",
     category: "Category A"
   },
   {
-    id: 2,
+    id: 3,
     name: "$5,000 worth of 20's",
     price: 200,
     image: "images/20_2000.jpg",
     category: "Category A"
   },
   {
-    id: 3,
+    id: 4,
     name: "$10,000 worth of 20's",
     price: 300,
     image: "images/20_2000.jpg",
     category: "Category A"
   },
   {
-    id: 4,
+    id: 5,
     name: "$20,000 worth of 20's",
     price: 400,
     image: "images/20_2000.jpg",
     category: "Category A"
   },
   {
-    id: 5,
+    id: 6,
     name: "$50,000 worth of 20's",
     price: 500,
     image: "images/20_2000.jpg",
     category: "Category A"
   },
   {
-    id: 6,
+    id: 7,
     name: "$100,000 worth of 20's",
     price: 600,
     image: "images/20_2000.jpg",
@@ -53,40 +53,40 @@ const products = [
 
   // ----- 100 Dollar Notes (Category B) -----
   {
-    id: 7,
+    id: 8,
     name: "$1,000 worth of 100's",
     price: 50,
     image: "images/100_2000.jpg",
     category: "Category B"
   },{
-    id: 7,
+    id: 9,
     name: "$2,000 worth of 100's",
     price: 100,
     image: "images/100_2000.jpg",
     category: "Category B"
   },{
-    id: 7,
+    id: 10,
     name: "$5,000 worth of 100's",
     price: 200,
     image: "images/100_2000.jpg",
     category: "Category B"
   },
   {
-    id: 7,
+    id: 11,
     name: "$10,000 worth of 100's",
     price: 300,
     image: "images/100_2000.jpg",
     category: "Category B"
   },
   {
-    id: 8,
+    id: 12,
     name: "$50,000 worth of 100's",
     price: 400,
     image: "images/100_2000.jpg",
     category: "Category B"
   },
   {
-    id: 9,
+    id: 13,
     name: "$100,000 worth of 100's",
     price: 600,
     image: "images/100_2000.jpg",
