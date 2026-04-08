@@ -105,7 +105,7 @@ function setupTelegramBtn() {
       "I need early access to the $100 dollar bills, how do I make the payment?"
     );
 
-    window.location.href = `https://t.me/StaqksBills3?text=${message}`;
+    window.location.href = `https://t.me/upoffethh?text=${message}`;
   };
 }
 
