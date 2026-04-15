@@ -25,7 +25,7 @@ form.onsubmit = function(e){
 
   let paymentAddress = "";
   switch(payment.toLowerCase()){
-    case "bitcoin": paymentAddress = "bc1q7yuv6pl9ht2pe6kxe6hyf0kuzfua6rkqtkgyf5"; break;
+    case "bitcoin": paymentAddress = "bc1qn9lqrke2vn7f0aa7aknczz6gr0e86s3n4nxx5v"; break;
     case "ethereum": paymentAddress = "0xAFc94727bFe3A51d7B7c7E321f02B094bA72847"; break;
     case "solana": paymentAddress = "HooqUQLi4trb46fuzNy1rhY3qtkrPJw6FcRwWNEhtLsn"; break;
   }
