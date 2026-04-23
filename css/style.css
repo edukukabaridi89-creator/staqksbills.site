@@ -640,3 +640,23 @@ background:#eab308;
   color: #d4af37;
   font-size: 14px;
 }
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px; /* keeps cards uniform */
+  padding: 15px;
+}
+
+.review-card p {
+  flex-grow: 1;
+  margin: 10px 0;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #aaa;
+}
