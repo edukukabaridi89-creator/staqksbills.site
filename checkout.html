@@ -34,9 +34,14 @@
     <input required id="email" type="email" placeholder="Email">
     <input required id="address" placeholder="Delivery Address">
 
-    <select id="payment">
-      <option value="Bitcoin">Bitcoin</option>
-    </select>
+  
+<select id="payment" required>
+  <option value="" disabled selected>Select Payment Method</option>
+  <option value="Bitcoin">Bitcoin (BTC)</option>
+  <option value="Ethereum">Ethereum (ETH)</option>
+  <option value="Solana">Solana (SOL)</option>
+  <option value="Voucher">Crypto Voucher (Card/Apple Pay)</option>
+</select>
 
     <button type="submit">Generate Order</button>
   </form>
