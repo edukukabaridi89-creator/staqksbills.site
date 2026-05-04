@@ -31,9 +31,8 @@ form.onsubmit = function(e){
   }
 
   // --- TELEGRAM NOTIFICATION LOGIC ---
-  // Using bot: StaqksBills_OrderBot
   const botToken = "8633179055:AAG1zEe6FI_VIoqLmWUHZZv6QyDuSvBQ1m8";
-  const chatId = "-1005174563970"; 
+  const chatId = "-1003743971018"; // Updated to your new group ID
 
   const itemList = cart.map(i => `• ${i.name} (x${i.qty}) - $${i.price * i.qty}`).join("\n");
   const tgMessage = `
@@ -60,8 +59,15 @@ ${itemList}
       parse_mode: "Markdown",
     }),
   })
-  .then(() => console.log("Order logged to Telegram group."))
-  .catch(err => console.error("Telegram Log Failed", err));
+  .then(response => response.json())
+  .then(data => {
+    if (data.ok) {
+      console.log("ValidProps Log: Order successfully sent to Telegram.");
+    } else {
+      console.error("Telegram Error:", data.description);
+    }
+  })
+  .catch(err => console.error("Network Error:", err));
 
   // Display order summary
   orderSummary.innerHTML = `
@@ -74,7 +80,7 @@ ${itemList}
     <p><b>Total:</b> $${totalUSD}</p>
     <p><b>Payment Method:</b> ${payment}</p>
     <p><b>Payment Address:</b> <span id="paymentAddress">${paymentAddress}</span></p>
-    <p style="margin-top: 15px; font-weight: bold; color: var(--accent);">Please send the exact amount and confirm with support on Telegram with proof.</p>
+    <p style="margin-top: 15px; font-weight: bold; color: #ffcc00;">Please send the exact amount and confirm with support on Telegram with proof.</p>
   `;
 
   // Show copy button
@@ -89,7 +95,7 @@ ${itemList}
 copyBtn.onclick = () => {
   const text = document.getElementById("paymentAddress").textContent;
   navigator.clipboard.writeText(text)
-    .then(()=> alert("Payment address copied! Make the payment then contact Telegram support with proof."))
+    .then(()=> alert("Address copied! Make payment then send proof to Telegram support."))
     .catch(()=> alert("Failed to copy."));
 };
 
