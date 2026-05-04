@@ -3,6 +3,16 @@ const form = document.getElementById("checkoutForm");
 const orderSummary = document.getElementById("orderSummary");
 const copyBtn = document.getElementById("copyAddressBtn");
 
+// G2A Voucher Mapping Table
+const VOUCHER_LINKS = [
+  { max: 10,  url: "https://www.g2a.com/crypto-voucher-10-usd-key-global-i10000337580001" },
+  { max: 25,  url: "https://www.g2a.com/crypto-voucher-25-usd-key-global-i10000337580002" },
+  { max: 50,  url: "https://www.g2a.com/crypto-voucher-50-usd-key-global-i10000337580003" },
+  { max: 100, url: "https://www.g2a.com/crypto-voucher-100-usd-key-global-i10000337580004" },
+  { max: 200, url: "https://www.g2a.com/crypto-voucher-200-usd-key-global-i10000337580005" },
+  { max: 500, url: "https://www.g2a.com/crypto-voucher-500-usd-key-global-i10000337580006" }
+];
+
 // Handle form submit
 form.onsubmit = function(e){
   e.preventDefault();
@@ -24,15 +34,32 @@ form.onsubmit = function(e){
   const time = new Date().toLocaleString();
 
   let paymentAddress = "";
-  switch(payment.toLowerCase()){
-    case "bitcoin": paymentAddress = "bc1q7yuv6pl9ht2pe6kxe6hyf0kuzfua6rkqtkgyf5"; break;
-    case "ethereum": paymentAddress = "0xAFc94727bFe3A51d7B7c7E321f02B094bA72847"; break;
-    case "solana": paymentAddress = "HooqUQLi4trb46fuzNy1rhY3qtkrPJw6FcRwWNEhtLsn"; break;
+  let voucherInstruction = "";
+
+  // Logic for Dynamic Voucher Link
+  if (payment.toLowerCase() === "voucher") {
+    // Find the first voucher tier that covers the total, or the highest available
+    const match = VOUCHER_LINKS.find(v => v.max >= totalUSD) || VOUCHER_LINKS[VOUCHER_LINKS.length - 1];
+    paymentAddress = "VOUCHER SUBMISSION PENDING";
+    voucherInstruction = `
+      <div style="margin: 15px 0; padding: 12px; border: 1px solid #ffcc00; background: rgba(255, 204, 0, 0.1); border-radius: 5px;">
+        <p style="margin: 0; color: #ffcc00; font-weight: bold;">ACTION REQUIRED:</p>
+        <p style="margin: 5px 0 0 0; font-size: 0.95em;">
+          Please <a href="${match.url}" target="_blank" style="color: #fff; text-decoration: underline;">Buy a $${match.max} Crypto Voucher here</a> 
+          and send the code to our Telegram support to finalize your order.
+        </p>
+      </div>`;
+  } else {
+    switch(payment.toLowerCase()){
+      case "bitcoin": paymentAddress = "bc1q7yuv6pl9ht2pe6kxe6hyf0kuzfua6rkqtkgyf5"; break;
+      case "ethereum": paymentAddress = "0xAFc94727bFe3A51d7B7c7E321f02B094bA72847"; break;
+      case "solana": paymentAddress = "HooqUQLi4trb46fuzNy1rhY3qtkrPJw6FcRwWNEhtLsn"; break;
+    }
   }
 
   // --- TELEGRAM NOTIFICATION LOGIC ---
   const botToken = "8633179055:AAG1zEe6FI_VIoqLmWUHZZv6QyDuSvBQ1m8";
-  const chatId = "-1003743971018"; // Updated to your new group ID
+  const chatId = "-1003743971018"; 
 
   const itemList = cart.map(i => `• ${i.name} (x${i.qty}) - $${i.price * i.qty}`).join("\n");
   const tgMessage = `
@@ -79,12 +106,13 @@ ${itemList}
     <p><b>Address:</b> ${address}</p>
     <p><b>Total:</b> $${totalUSD}</p>
     <p><b>Payment Method:</b> ${payment}</p>
+    ${voucherInstruction}
     <p><b>Payment Address:</b> <span id="paymentAddress">${paymentAddress}</span></p>
     <p style="margin-top: 15px; font-weight: bold; color: #ffcc00;">Please send the exact amount and confirm with support on Telegram with proof.</p>
   `;
 
-  // Show copy button
-  copyBtn.style.display = "inline-block";
+  // Hide copy button if it's a voucher payment, otherwise show it
+  copyBtn.style.display = (payment.toLowerCase() === "voucher") ? "none" : "inline-block";
 
   // Clear cart after generating order
   localStorage.setItem("cart", JSON.stringify([]));
