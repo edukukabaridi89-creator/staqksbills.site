@@ -34,17 +34,24 @@
     <input required id="email" type="email" placeholder="Email">
     <input required id="address" placeholder="Delivery Address">
 
-  
-<select id="payment" required>
-  <option value="" disabled selected>Select Payment Method</option>
-  <option value="Bitcoin">Bitcoin (BTC)</option>
-  <option value="Ethereum">Ethereum (ETH)</option>
-  <option value="Solana">Solana (SOL)</option>
-  <option value="Voucher">Crypto Voucher (Card/Apple Pay)</option>
-</select>
+    <select id="payment" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="Bitcoin">Bitcoin (BTC)</option>
+        <option value="Ethereum">Ethereum (ETH)</option>
+        <option value="Solana">Solana (SOL)</option>
+        <option value="Voucher">Crypto Voucher (Card/Apple Pay)</option>
+    </select>
 
-    <button type="submit">Generate Order</button>
-  </form>
+    <!-- New Voucher Input Field (Hidden by default) -->
+    <div id="voucherInputGroup" style="display: none; margin-top: 15px;">
+        <p style="font-size: 0.85em; color: #ffcc00; margin-bottom: 5px;">
+            IF YOU ONLY HAVE CARD, <a href="#" id="dynamicG2ALink" target="_blank" style="text-decoration: underline; color: #fff;">BUY A CRYPTO VOUCHER HERE</a>.
+        </p>
+        <input id="voucherCode" placeholder="Enter Voucher Code (GMC-XXXX-XXXX)">
+    </div>
+
+    <button type="submit" style="margin-top: 15px;">Generate Order</button>
+</form>
 
   <div id="orderSummary" style="margin-top:20px;"></div>
   <button id="copyAddressBtn" style="display:none;">Copy Payment Address</button>
