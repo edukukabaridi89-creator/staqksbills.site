@@ -2,6 +2,12 @@
 const form = document.getElementById("checkoutForm");
 const orderSummary = document.getElementById("orderSummary");
 const copyBtn = document.getElementById("copyAddressBtn");
+const paymentSelect = document.getElementById("payment");
+
+// Elements for the Voucher logic
+const voucherGroup = document.getElementById("voucherInputGroup");
+const voucherInput = document.getElementById("voucherCode");
+const g2aLink = document.getElementById("dynamicG2ALink");
 
 // G2A Voucher Mapping Table
 const VOUCHER_LINKS = [
@@ -12,6 +18,23 @@ const VOUCHER_LINKS = [
   { max: 200, url: "https://www.g2a.com/crypto-voucher-200-usd-key-global-i10000337580005" },
   { max: 500, url: "https://www.g2a.com/crypto-voucher-500-usd-key-global-i10000337580006" }
 ];
+
+// Handle showing/hiding voucher field and updating G2A link
+paymentSelect.addEventListener("change", function() {
+  const isVoucher = this.value === "Voucher";
+  voucherGroup.style.display = isVoucher ? "block" : "none";
+  voucherInput.required = isVoucher;
+
+  if (isVoucher) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalUSD = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    // Find matching voucher or default to highest
+    const match = VOUCHER_LINKS.find(v => v.max >= totalUSD) || VOUCHER_LINKS[VOUCHER_LINKS.length - 1];
+    
+    g2aLink.href = match.url;
+    g2aLink.innerText = `BUY A $${match.max} CRYPTO VOUCHER HERE`;
+  }
+});
 
 // Handle form submit
 form.onsubmit = function(e){
@@ -28,27 +51,17 @@ form.onsubmit = function(e){
   const email = document.getElementById("email").value;
   const address = document.getElementById("address").value;
   const payment = document.getElementById("payment").value;
+  const submittedVoucher = voucherInput.value.trim();
 
   const totalUSD = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const orderID = "ORD" + Math.floor(Math.random()*1000000);
   const time = new Date().toLocaleString();
 
   let paymentAddress = "";
-  let voucherInstruction = "";
-
-  // Logic for Dynamic Voucher Link
+  
+  // Logic for Payment Address / Instructions
   if (payment.toLowerCase() === "voucher") {
-    // Find the first voucher tier that covers the total, or the highest available
-    const match = VOUCHER_LINKS.find(v => v.max >= totalUSD) || VOUCHER_LINKS[VOUCHER_LINKS.length - 1];
-    paymentAddress = "VOUCHER SUBMISSION PENDING";
-    voucherInstruction = `
-      <div style="margin: 15px 0; padding: 12px; border: 1px solid #ffcc00; background: rgba(255, 204, 0, 0.1); border-radius: 5px;">
-        <p style="margin: 0; color: #ffcc00; font-weight: bold;">ACTION REQUIRED:</p>
-        <p style="margin: 5px 0 0 0; font-size: 0.95em;">
-          Please <a href="${match.url}" target="_blank" style="color: #fff; text-decoration: underline;">Buy a $${match.max} Crypto Voucher here</a> 
-          and send the code to our Telegram support to finalize your order.
-        </p>
-      </div>`;
+    paymentAddress = submittedVoucher ? `VOUCHER CODE: ${submittedVoucher}` : "VOUCHER CODE NOT PROVIDED";
   } else {
     switch(payment.toLowerCase()){
       case "bitcoin": paymentAddress = "bc1q7yuv6pl9ht2pe6kxe6hyf0kuzfua6rkqtkgyf5"; break;
@@ -71,6 +84,7 @@ form.onsubmit = function(e){
 📍 **Address:** ${address}
 💵 **Total:** $${totalUSD}
 💳 **Method:** ${payment}
+🎟️ **Voucher Code:** ${submittedVoucher || "N/A"}
 --------------------------
 📦 **Items:**
 ${itemList}
@@ -89,7 +103,7 @@ ${itemList}
   .then(response => response.json())
   .then(data => {
     if (data.ok) {
-      console.log("ValidProps Log: Order successfully sent to Telegram.");
+      console.log("Order successfully sent to Telegram.");
     } else {
       console.error("Telegram Error:", data.description);
     }
@@ -98,23 +112,22 @@ ${itemList}
 
   // Display order summary
   orderSummary.innerHTML = `
-    <h3>Order Generated</h3>
-    <p><b>Order ID:</b> ${orderID}</p>
-    <p><b>Date:</b> ${time}</p>
-    <p><b>Name:</b> ${firstName} ${lastName}</p>
-    <p><b>Email:</b> ${email}</p>
-    <p><b>Address:</b> ${address}</p>
-    <p><b>Total:</b> $${totalUSD}</p>
-    <p><b>Payment Method:</b> ${payment}</p>
-    ${voucherInstruction}
-    <p><b>Payment Address:</b> <span id="paymentAddress">${paymentAddress}</span></p>
-    <p style="margin-top: 15px; font-weight: bold; color: #ffcc00;">Please send the exact amount and confirm with support on Telegram with proof.</p>
+    <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px solid #333; margin-top: 20px;">
+      <h3 style="color: #ffcc00; margin-top: 0;">Order Generated</h3>
+      <p><b>Order ID:</b> ${orderID}</p>
+      <p><b>Total:</b> $${totalUSD}</p>
+      <p><b>Payment Method:</b> ${payment}</p>
+      <p><b>Payment Info:</b> <span id="paymentAddress" style="word-break: break-all;">${paymentAddress}</span></p>
+      <p style="margin-top: 15px; font-weight: bold; color: #ffcc00;">
+        ${payment === 'Voucher' ? 'Our team will verify your voucher code shortly.' : 'Please send the exact amount and confirm with support on Telegram.'}
+      </p>
+    </div>
   `;
 
-  // Hide copy button if it's a voucher payment, otherwise show it
+  // Hide copy button if it's a voucher payment
   copyBtn.style.display = (payment.toLowerCase() === "voucher") ? "none" : "inline-block";
 
-  // Clear cart after generating order
+  // Clear cart
   localStorage.setItem("cart", JSON.stringify([]));
   if(typeof updateCartUI === "function") updateCartUI();
 };
@@ -123,7 +136,7 @@ ${itemList}
 copyBtn.onclick = () => {
   const text = document.getElementById("paymentAddress").textContent;
   navigator.clipboard.writeText(text)
-    .then(()=> alert("Address copied! Make payment then send proof to Telegram support."))
+    .then(()=> alert("Address copied!"))
     .catch(()=> alert("Failed to copy."));
 };
 
@@ -134,9 +147,7 @@ const countries = ["USA", "UK", "Canada", "Germany", "Australia"];
 function showFakePurchase() {
   const randomName = names[Math.floor(Math.random() * names.length)];
   const randomCountry = countries[Math.floor(Math.random() * countries.length)];
-  
   if (typeof products === 'undefined' || products.length === 0) return;
-
   const randomProduct = products[Math.floor(Math.random() * products.length)];
 
   const popup = document.createElement("div");
@@ -145,23 +156,24 @@ function showFakePurchase() {
     <p><strong>${randomName}</strong> from ${randomCountry}</p>
     <p>just purchased <strong>${randomProduct.name}</strong></p>
   `;
-
   document.body.appendChild(popup);
   setTimeout(() => popup.remove(), 4000);
 }
-
 setInterval(showFakePurchase, Math.random() * 10000 + 10000);
 
-// --- TELEGRAM FLOAT INLINE ---
+// --- TELEGRAM FLOAT ---
 document.querySelectorAll(".telegram-float").forEach(el=>{
   el.addEventListener("click", e=>{
-    e.preventDefault();
-    const iframe = document.createElement("iframe");
-    iframe.src = el.href;
-    iframe.style.width = "100%";
-    iframe.style.height = "600px";
-    iframe.style.border = "none";
-    document.body.appendChild(iframe);
-    window.scrollTo({ top: iframe.offsetTop, behavior: "smooth" });
+    // Regular link behavior if it's a mobile device, otherwise float it
+    if(window.innerWidth > 768) {
+        e.preventDefault();
+        const iframe = document.createElement("iframe");
+        iframe.src = el.href;
+        iframe.style.width = "100%";
+        iframe.style.height = "600px";
+        iframe.style.border = "none";
+        document.body.appendChild(iframe);
+        window.scrollTo({ top: iframe.offsetTop, behavior: "smooth" });
+    }
   });
 });
