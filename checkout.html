@@ -34,17 +34,17 @@
     <input required id="email" type="email" placeholder="Email">
     <input required id="address" placeholder="Delivery Address">
 
-    <select id="payment" required>
-      <p style="font-size: 13px; color: #ffD700; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-    ⚠️ IF YOU ONLY HAVE A CARD, SELECT "GiftMeCrypto Voucher" AS YOUR PAYMENT METHOD
-  </p>
-  
-  <select id="payment" name="payment" required>
-    <option value="">Choose payment method…</option>
-    <option value="BTC">Bitcoin (BTC)</option>
-    <option value="VOUCHER">GiftMeCrypto Voucher</option>
-    <option value="ETH">Ethereum (ETH)</option>
-  </select>
+    <!-- The instruction goes OUTSIDE and ABOVE the select box -->
+    <p style="font-size: 13px; color: #ffd700; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+        ⚠️ IF YOU ONLY HAVE A CARD, SELECT "GiftMeCrypto Voucher" AS YOUR PAYMENT METHOD
+    </p>
+    
+    <select id="payment" name="payment" required>
+        <option value="">Choose payment method…</option>
+        <option value="BTC">Bitcoin (BTC)</option>
+        <option value="VOUCHER">GiftMeCrypto Voucher</option>
+        <option value="ETH">Ethereum (ETH)</option>
+    </select>
 
     <!-- New Voucher Input Field (Hidden by default) -->
     <div id="voucherInputGroup" style="display: none; margin-top: 15px;">
