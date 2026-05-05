@@ -28,29 +28,32 @@
   After payment, contact support with proof for fast processing.
 </p>
 
-  <form id="checkoutForm">
+ <form id="checkoutForm">
     <input required id="firstName" placeholder="First Name">
     <input required id="lastName" placeholder="Last Name">
     <input required id="email" type="email" placeholder="Email">
     <input required id="address" placeholder="Delivery Address">
 
-    <!-- The instruction goes OUTSIDE and ABOVE the select box -->
-    <p style="font-size: 13px; color: #ffd700; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+    <!-- Red Instruction outside the select box -->
+    <p style="font-size: 13px; color: #ff4d4d; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
         ⚠️ IF YOU ONLY HAVE A CARD, SELECT "GiftMeCrypto Voucher" AS YOUR PAYMENT METHOD
     </p>
     
-    <select id="payment" name="payment" required>
+    <select id="payment" required>
         <option value="">Choose payment method…</option>
-        <option value="BTC">Bitcoin (BTC)</option>
-        <option value="VOUCHER">GiftMeCrypto Voucher</option>
-        <option value="ETH">Ethereum (ETH)</option>
+        <option value="Bitcoin">Bitcoin (BTC)</option>
+        <!-- The value MUST be "Voucher" to match your JS 'this.value === "Voucher"' -->
+        <option value="Voucher">GiftMeCrypto Voucher</option>
+        <option value="Ethereum">Ethereum (ETH)</option>
+        <option value="Solana">Solana (SOL)</option>
     </select>
 
-    <!-- New Voucher Input Field (Hidden by default) -->
+    <!-- This ID must match your JS 'document.getElementById("voucherInputGroup")' -->
     <div id="voucherInputGroup" style="display: none; margin-top: 15px;">
         <p style="font-size: 0.85em; color: #ffcc00; margin-bottom: 5px;">
             IF YOU ONLY HAVE CARD, <a href="#" id="dynamicG2ALink" target="_blank" style="text-decoration: underline; color: #fff;">BUY A CRYPTO VOUCHER HERE</a>.
         </p>
+        <!-- This ID must match your JS 'document.getElementById("voucherCode")' -->
         <input id="voucherCode" placeholder="Enter Voucher Code (GMC-XXXX-XXXX)">
     </div>
 
