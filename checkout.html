@@ -38,12 +38,13 @@
       <p style="font-size: 13px; color: #ffD700; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
     ⚠️ IF YOU ONLY HAVE A CARD, SELECT "GiftMeCrypto Voucher" AS YOUR PAYMENT METHOD
   </p>
-        <option value="" disabled selected>Select Payment Method</option>
-      <option value="Bitcoin">Bitcoin (BTC)</option>
-      <option value="Voucher">Crypto Voucher (Card/Apple Pay)</option>
-        <option value="Ethereum">Ethereum (ETH)</option>
-        <option value="Solana">Solana (SOL)</option>
-    </select>
+  
+  <select id="payment" name="payment" required>
+    <option value="">Choose payment method…</option>
+    <option value="BTC">Bitcoin (BTC)</option>
+    <option value="VOUCHER">GiftMeCrypto Voucher</option>
+    <option value="ETH">Ethereum (ETH)</option>
+  </select>
 
     <!-- New Voucher Input Field (Hidden by default) -->
     <div id="voucherInputGroup" style="display: none; margin-top: 15px;">
