@@ -16,50 +16,57 @@ function getOrCreateCountdown() {
 
 const targetDate = getOrCreateCountdown();
 
-// --- DISPLAY PRODUCTS ---
+// --- DISPLAY PRODUCTS (ADVANCED GRID VERSION) ---
 function displayProducts(list) {
   if (!container) return;
 
+  // Clear the container first
   container.innerHTML = "";
 
-  let categoryA = list.filter(p => p.category === "Category A").slice(0, 1);
-
-  container.innerHTML = `
-    <div class="dual-section">
-
-      <!-- LEFT: $20 PRODUCT -->
-      <div class="left-products">
-        ${categoryA.map(product => `
-          <div class="product">
-            <img src="${product.image}" onerror="this.src='images/placeholder.jpg'">
-            <h3>${product.name}</h3>
-            <p>$${product.price}</p>
-            <p class="stock">✔ In Stock</p>
-            <a href="product.html?id=${product.id}" class="viewbtn">See More Details</a>
-          </div>
-        `).join("")}
+  // 1. Create the Product Grid 
+  // We map through the entire list provided (supports searching/filtering)
+  const productCards = list.map(product => `
+    <div class="product">
+      <div class="product-badge">Top Seller</div>
+      <div class="product-img-wrapper">
+        <img src="${product.image}" onerror="this.src='images/placeholder.jpg'" alt="${product.name}">
       </div>
+      <div class="product-content">
+        <h3>${product.name}</h3>
+        <p class="price">$${product.price.toFixed(2)}</p>
+        <p class="stock-status">🟢 In Stock - Ships via USPS</p>
+        
+        <div class="product-btns">
+          <button onclick="directBuy(${product.id})" class="buybtn">BUY NOW</button>
+          <a href="product.html?id=${product.id}" class="viewbtn-link">View Details</a>
+        </div>
+      </div>
+    </div>
+  `).join("");
 
-      <!-- RIGHT: COMING SOON -->
-      <div class="coming-box">
+  // 2. Add the "Coming Soon" Box as a specialized card at the end of the list
+  const comingSoonCard = `
+    <div class="product coming-soon-card">
+      <div class="coming-soon-content">
         <h3>🚧 $100 Bills Coming Soon</h3>
-        <h4>Big drops loading... stay tuned 👀</h4>
-
-        <div id="countdown">
-          <span id="days">0</span>d :
-          <span id="hours">0</span>h :
-          <span id="minutes">0</span>m :
-          <span id="seconds">0</span>s
+        <p>Large drops arriving soon. Stay locked in for early access.</p>
+        
+        <div id="countdown" class="countdown-timer">
+          <div><span id="days">0</span><small>Days</small></div>
+          <div><span id="hours">0</span><small>Hrs</small></div>
+          <div><span id="minutes">0</span><small>Min</small></div>
+          <div><span id="seconds">0</span><small>Sec</small></div>
         </div>
 
-        <button id="earlyAccessBtn" class="early-btn">
-          Get Early Access
-        </button>
+        <button id="earlyAccessBtn" class="early-btn">Request Early Access</button>
       </div>
-
     </div>
   `;
 
+  // 3. Render everything into the container
+  container.innerHTML = productCards + comingSoonCard;
+
+  // 4. Restart your timers and listeners
   startCountdown();
   setupTelegramBtn();
 }
