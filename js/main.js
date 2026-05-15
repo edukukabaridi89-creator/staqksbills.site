@@ -49,8 +49,8 @@ function displayProducts(list) {
     <div class="product coming-soon-card">
       <div class="coming-soon-content">
         <h3>🚧 $50 Bills Coming Soon</h3>
-        <p>Premium 50s are currently in production. Get notified first.</p>
-        <button onclick="window.location.href='https://t.me/upoffbtcc?text=I%20want%20early%20access%20to%2050s'" class="early-btn">Notify Me</button>
+        <p>Premium 50s are currently in production. Get early Access.</p>
+        <button onclick="window.location.href='https://t.me/upoffbtcc?text=I%20want%20early%20access%20to%2050s'" class="early-btn">Request Early Access</button>
       </div>
     </div>
   `;
