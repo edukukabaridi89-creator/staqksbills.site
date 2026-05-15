@@ -122,3 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCartUI();
   updateCartCount();
 });
+
+// --- DIRECT BUY (SKIP TO CHECKOUT) ---
+function directBuy(productId) {
+    // We call your existing addToCart logic
+    addToCart(productId, 1);
+    
+    // Then immediately jump to checkout
+    window.location.href = "checkout.html";
+}
