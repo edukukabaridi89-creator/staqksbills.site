@@ -48,7 +48,7 @@ function displayProducts(list) {
   const comingSoonCard = `
     <div class="product coming-soon-card">
       <div class="coming-soon-content">
-        <h3>🚧 $100 Bills Coming Soon</h3>
+        <h3>🚧 $50 Bills Coming Soon</h3>
         <p>Large drops arriving soon. Stay locked in for early access.</p>
         
         <div id="countdown" class="countdown-timer">
@@ -109,7 +109,7 @@ function setupTelegramBtn() {
 
   btn.onclick = () => {
     const message = encodeURIComponent(
-      "I need early access to the $100 dollar bills, how do I make the payment?"
+      "I need early access to the $50 dollar bills, how do I make the payment?"
     );
 
     window.location.href = `https://t.me/upoffbtcc?text=${message}`;
