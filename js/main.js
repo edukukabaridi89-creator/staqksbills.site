@@ -16,15 +16,13 @@ function getOrCreateCountdown() {
 
 const targetDate = getOrCreateCountdown();
 
-// --- DISPLAY PRODUCTS (FILTERED FOR 20's ONLY) ---
+// --- DISPLAY PRODUCTS (20's ACTIVE + 50's/100's COMING SOON) ---
 function displayProducts(list) {
   if (!container) return;
 
-  // Clear the container first
   container.innerHTML = "";
 
-  // 1. Create the Product Grid 
-  // We filter for 'Category A' before mapping to keep the 100s invisible
+  // 1. Filter for 'Category A' to keep the 20's visible
   const productCards = list
     .filter(product => product.category === "Category A")
     .map(product => `
@@ -46,11 +44,22 @@ function displayProducts(list) {
       </div>
     `).join("");
 
-  // 2. Add the "Coming Soon" Box for the $100 bills
-  const comingSoonCard = `
+  // 2. Coming Soon Card for $50 Bills
+  const comingSoon50 = `
     <div class="product coming-soon-card">
       <div class="coming-soon-content">
-        <h3>🚧 $100 Bills Coming Soon</h3>
+        <h3>🚧 $50 Bills Coming Soon</h3>
+        <p>Premium 50s are currently in production. Get notified first.</p>
+        <button onclick="window.location.href='https://t.me/upoffbtcc?text=I%20want%20early%20access%20to%2050s'" class="early-btn">Notify Me</button>
+      </div>
+    </div>
+  `;
+
+  // 3. Coming Soon Card for $100 Bills (With Countdown)
+  const comingSoon100 = `
+    <div class="product coming-soon-card">
+      <div class="coming-soon-content">
+        <h3>🚀 $100 Bills Coming Soon</h3>
         <p>Large drops arriving soon. Stay locked in for early access.</p>
         
         <div id="countdown" class="countdown-timer">
@@ -65,10 +74,10 @@ function displayProducts(list) {
     </div>
   `;
 
-  // 3. Render the 20's grid + the Coming Soon card
-  container.innerHTML = productCards + comingSoonCard;
+  // 4. Render 20's, then the 50's card, then the 100's card
+  container.innerHTML = productCards + comingSoon50 + comingSoon100;
 
-  // 4. Restart your timers and listeners
+  // 5. Restart timers and listeners
   startCountdown();
   setupTelegramBtn();
 }
