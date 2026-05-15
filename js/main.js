@@ -16,7 +16,7 @@ function getOrCreateCountdown() {
 
 const targetDate = getOrCreateCountdown();
 
-// --- DISPLAY PRODUCTS (ADVANCED GRID VERSION) ---
+// --- DISPLAY PRODUCTS (FILTERED FOR 20's ONLY) ---
 function displayProducts(list) {
   if (!container) return;
 
@@ -24,31 +24,33 @@ function displayProducts(list) {
   container.innerHTML = "";
 
   // 1. Create the Product Grid 
-  // We map through the entire list provided (supports searching/filtering)
-  const productCards = list.map(product => `
-    <div class="product">
-      <div class="product-badge">Top Seller</div>
-      <div class="product-img-wrapper">
-        <img src="${product.image}" onerror="this.src='images/placeholder.jpg'" alt="${product.name}">
-      </div>
-      <div class="product-content">
-        <h3>${product.name}</h3>
-        <p class="price">$${product.price.toFixed(2)}</p>
-        <p class="stock-status">🟢 In Stock - Ships via USPS</p>
-        
-        <div class="product-btns">
-          <button onclick="directBuy(${product.id})" class="buybtn">BUY NOW</button>
-          <a href="product.html?id=${product.id}" class="viewbtn-link">View Details</a>
+  // We filter for 'Category A' before mapping to keep the 100s invisible
+  const productCards = list
+    .filter(product => product.category === "Category A")
+    .map(product => `
+      <div class="product">
+        <div class="product-badge">Top Seller</div>
+        <div class="product-img-wrapper">
+          <img src="${product.image}" onerror="this.src='images/placeholder.jpg'" alt="${product.name}">
+        </div>
+        <div class="product-content">
+          <h3>${product.name}</h3>
+          <p class="price">$${product.price.toFixed(2)}</p>
+          <p class="stock-status">🟢 In Stock - Ships via USPS</p>
+          
+          <div class="product-btns">
+            <button onclick="directBuy(${product.id})" class="buybtn">BUY NOW</button>
+            <a href="product.html?id=${product.id}" class="viewbtn-link">View Details</a>
+          </div>
         </div>
       </div>
-    </div>
-  `).join("");
+    `).join("");
 
-  // 2. Add the "Coming Soon" Box as a specialized card at the end of the list
+  // 2. Add the "Coming Soon" Box for the $100 bills
   const comingSoonCard = `
     <div class="product coming-soon-card">
       <div class="coming-soon-content">
-        <h3>🚧 $50 Bills Coming Soon</h3>
+        <h3>🚧 $100 Bills Coming Soon</h3>
         <p>Large drops arriving soon. Stay locked in for early access.</p>
         
         <div id="countdown" class="countdown-timer">
@@ -63,14 +65,13 @@ function displayProducts(list) {
     </div>
   `;
 
-  // 3. Render everything into the container
+  // 3. Render the 20's grid + the Coming Soon card
   container.innerHTML = productCards + comingSoonCard;
 
   // 4. Restart your timers and listeners
   startCountdown();
   setupTelegramBtn();
 }
-
 // --- COUNTDOWN FUNCTION ---
 function startCountdown() {
   function updateCountdown() {
