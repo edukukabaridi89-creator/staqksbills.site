@@ -1,11 +1,11 @@
 /* ---------- GLOBAL ---------- */
 
 :root{
---black:#0b0b0b;
+--black:#050505;
 --dark:#121212;
---gold:#d4af37;
---gold-dark:#b8962e;
---text:#e6e6e6;
+--red:#ff0000;
+--red-dark:#cc0000;
+--text:#ffffff;
 }
 
 *{
@@ -28,13 +28,15 @@ justify-content:space-between;
 align-items:center;
 padding:18px 40px;
 background:#000;
-border-bottom:1px solid var(--gold);
+border-bottom:2px solid var(--red);
 }
 
 .logo{
 font-size:22px;
 font-weight:bold;
-color:var(--gold);
+color:var(--red);
+text-transform: uppercase;
+letter-spacing: 2px;
 }
 
 .navlinks{
@@ -44,20 +46,21 @@ gap:25px;
 }
 
 .navlinks a{
-color:var(--gold);
+color:var(--text);
 text-decoration:none;
 font-size:15px;
 font-weight:600;
+transition: 0.3s;
 }
 
 .navlinks a:hover{
-color:white;
+color:var(--red);
 }
 
 .cart{
 font-size:20px;
 text-decoration:none;
-color:var(--gold);
+color:var(--red);
 }
 
 
@@ -67,11 +70,12 @@ color:var(--gold);
 text-align:center;
 padding:70px 20px;
 background:linear-gradient(135deg,#000,#1a1a1a);
+border-bottom: 1px solid #222;
 }
 
 .hero h1{
 font-size:40px;
-color:var(--gold);
+color:var(--red);
 }
 
 
@@ -95,7 +99,7 @@ color:white;
 .rating{
 margin-top:10px;
 font-weight:bold;
-color:var(--gold);
+color:var(--red);
 }
 
 
@@ -109,16 +113,17 @@ padding:40px;
 }
 
 .product {
-  background: #111;
+  background: var(--dark);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(212,175,55,0.2);
+  border: 1px solid #222;
   transition: 0.3s;
 }
 
 .product:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 15px rgba(212,175,55,0.3);
+  border-color: var(--red);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 .product img{
@@ -136,17 +141,19 @@ font-weight:bold;
 .viewbtn, .buybtn {
   display: inline-block;
   padding: 12px 18px;
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  color: black;
+  background: var(--red);
+  color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
   border: none;
   transition: 0.3s;
+  text-align: center;
 }
 
 .viewbtn:hover, .buybtn:hover {
-  background: #ffd700;
+  background: white;
+  color: black;
   transform: scale(1.05);
 }
 
@@ -190,7 +197,7 @@ footer{
 background:#000;
 color:white;
 padding:40px;
-border-top:1px solid var(--gold);
+border-top:2px solid var(--red);
 }
 
 .footer-grid{
@@ -201,18 +208,21 @@ gap:20px;
 
 .footer-grid a{
 display:block;
-color:var(--gold);
+color:var(--text);
 text-decoration:none;
 margin:5px 0;
+transition: 0.3s;
 }
 
 .footer-grid a:hover{
-color:white;
+color:var(--red);
 }
 
 copyright{
 text-align:center;
 margin-top:20px;
+display: block;
+color: #666;
 }
 
 
@@ -228,6 +238,7 @@ padding:40px;
 .product-image img{
 width:100%;
 border-radius:10px;
+border: 1px solid #333;
 }
 
 .product-info{
@@ -246,10 +257,11 @@ gap:10px;
 .quantity button{
 width:40px;
 height:40px;
-background:var(--gold);
+background:var(--red);
 border:none;
-color:black;
+color:white;
 font-weight:bold;
+cursor: pointer;
 }
 
 .quantity input{
@@ -263,8 +275,8 @@ color:white;
 .buybtn{
 margin-left:10px;
 padding:10px 20px;
-background:var(--gold);
-color:black;
+background:var(--red);
+color:white;
 border:none;
 border-radius:6px;
 font-weight:bold;
@@ -288,11 +300,12 @@ border:1px solid #222;
 .checkout-btn{
 display:inline-block;
 padding:12px 20px;
-background:var(--gold);
-color:black;
+background:var(--red);
+color:white;
 text-decoration:none;
 border-radius:6px;
 font-weight:bold;
+text-align: center;
 }
 
 
@@ -316,12 +329,13 @@ color:white;
 
 .checkout button{
 padding:12px;
-background:var(--gold);
-color:black;
+background:var(--red);
+color:white;
 border:none;
 width:100%;
 border-radius:6px;
 font-weight:bold;
+cursor: pointer;
 }
 
 
@@ -330,7 +344,7 @@ font-weight:bold;
 .category-title{
 font-size:22px;
 margin:40px 40px 10px;
-color:var(--gold);
+color:var(--red);
 }
 
 .products-grid{
@@ -347,19 +361,21 @@ padding:0 40px 40px;
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #3754d4, #1343e2);
-  color: black;
+  background: var(--red);
+  color: white;
   padding: 12px 18px;
   border-radius: 50px;
   font-weight: bold;
   text-decoration: none;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   transition: 0.3s;
+  z-index: 2000;
 }
 
 .telegram-float:hover {
   transform: scale(1.05);
-  background: #ffd700;
+  background: white;
+  color: black;
 }
 
 
@@ -408,8 +424,8 @@ max-width:320px;
 }
 
 #checkoutBtn{
-background:linear-gradient(135deg,#d4af37,#b8962e);
-color:black;
+background: var(--red);
+color:white;
 padding:14px 22px;
 border:none;
 border-radius:8px;
@@ -425,20 +441,22 @@ animation: glowPulse 2s infinite;
 /* Hover effect */
 #checkoutBtn:hover{
 transform:translateY(-2px);
-box-shadow:0 6px 18px rgba(212,175,55,0.6);
-animation:none; /* stop pulsing on hover */
+background: white;
+color: black;
+box-shadow:0 6px 18px rgba(255,0,0,0.4);
+animation:none; 
 }
 
-/* Glow animation keyframes */
+/* Red Glow animation keyframes */
 @keyframes glowPulse{
 0%{
-box-shadow:0 0 5px rgba(212,175,55,0.4);
+box-shadow:0 0 5px rgba(255,0,0,0.4);
 }
 50%{
-box-shadow:0 0 20px rgba(212,175,55,0.9);
+box-shadow:0 0 20px rgba(255,0,0,0.8);
 }
 100%{
-box-shadow:0 0 5px rgba(212,175,55,0.4);
+box-shadow:0 0 5px rgba(255,0,0,0.4);
 }
 }
 
@@ -457,7 +475,7 @@ background:#b91c1c;
 }
 
 .urgency{
-color:#facc15;
+color: var(--red);
 font-size:13px;
 font-weight:bold;
 margin:5px 0;
@@ -476,12 +494,13 @@ margin-bottom:10px;
 
 .payment-box{
 background:#111;
-color:#facc15;
+color: var(--red);
 padding:12px;
 border-radius:8px;
 margin-top:10px;
 font-weight:bold;
 word-break:break-all;
+border: 1px solid #222;
 }
 
 .pay-note{
@@ -492,8 +511,8 @@ font-size:14px;
 
 #copyAddressBtn{
 margin-top:15px;
-background:#facc15;
-color:black;
+background: var(--red);
+color:white;
 border:none;
 padding:10px;
 border-radius:6px;
@@ -502,13 +521,14 @@ cursor:pointer;
 }
 
 #copyAddressBtn:hover{
-background:#eab308;
+background: white;
+color: black;
 }
 
 .coming-soon-box {
-  background: #0f172a;
-  border: 1px solid #d4af37;
-  color: #d4af37;
+  background: #000;
+  border: 1px solid var(--red);
+  color: var(--red);
   padding: 30px;
   margin: 20px 40px;
   border-radius: 10px;
@@ -539,9 +559,9 @@ background:#eab308;
 
 /* RIGHT SIDE (COMING SOON) */
 .coming-box {
-  background: #0f172a;
-  border: 1px solid #d4af37;
-  color: #d4af37;
+  background: #000;
+  border: 1px dashed var(--red);
+  color: var(--red);
   border-radius: 12px;
   padding: 30px;
   text-align: center;
@@ -554,12 +574,13 @@ background:#eab308;
   font-size: 22px;
   margin: 20px 0;
   font-weight: bold;
+  color: white;
 }
 
 /* EARLY ACCESS BUTTON */
 .early-btn {
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  color: black;
+  background: var(--red);
+  color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
@@ -570,7 +591,8 @@ background:#eab308;
 
 .early-btn:hover {
   transform: scale(1.05);
-  background: #ffd700;
+  background: white;
+  color: black;
 }
 
 /* MOBILE FIX */
@@ -585,11 +607,11 @@ background:#eab308;
   position: fixed;
   bottom: 80px;
   left: 20px;
-  background: #0f172a;
-  color: #d4af37;
+  background: #000;
+  color: var(--red);
   padding: 10px 15px;
   border-radius: 8px;
-  border: 1px solid #d4af37;
+  border: 1px solid var(--red);
   font-size: 14px;
   z-index: 1000;
 }
@@ -603,7 +625,7 @@ background:#eab308;
   color: white;
   padding: 12px 18px;
   border-radius: 10px;
-  border-left: 4px solid #d4af37;
+  border-left: 4px solid var(--red);
   font-size: 14px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   animation: slideIn 0.5s ease;
@@ -627,17 +649,18 @@ background:#eab308;
   gap: 20px;
   padding: 15px;
   background: #000;
-  color: #c9b928;
+  color: var(--red);
   font-size: 14px;
   flex-wrap: wrap;
+  border-bottom: 1px solid #1a1a1a;
 }
 
 .checkout-note {
   background: #111;
-  border: 1px solid #d4af37;
+  border: 1px solid var(--red);
   padding: 15px;
   border-radius: 8px;
-  color: #d4af37;
+  color: var(--red);
   font-size: 14px;
 }
 
@@ -645,7 +668,7 @@ background:#eab308;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 180px; /* keeps cards uniform */
+  height: 180px; 
   padding: 15px;
 }
 
@@ -681,7 +704,7 @@ background:#eab308;
 
 .review-card:hover{
     transform:translateY(-5px);
-    border-color:#333;
+    border-color: var(--red);
 }
 
 .review-image{
@@ -749,9 +772,9 @@ background:#eab308;
 }
 
 .product:hover {
-    border-color: #ffcc00;
+    border-color: var(--red);
     transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(255,0,0,0.2);
 }
 
 .product img {
@@ -764,7 +787,7 @@ background:#eab308;
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #ff4d4d;
+    background: var(--red);
     color: white;
     font-size: 10px;
     padding: 3px 8px;
@@ -782,8 +805,8 @@ background:#eab308;
 .buybtn {
     width: 100%;
     padding: 12px;
-    background: #ffcc00;
-    color: #000;
+    background: var(--red);
+    color: white;
     font-weight: 800;
     border: none;
     border-radius: 8px;
@@ -796,15 +819,16 @@ background:#eab308;
     font-size: 13px;
     text-align: center;
     text-decoration: none;
+    transition: 0.3s;
 }
 
 .viewbtn-alt:hover {
-    color: #fff;
+    color: var(--red);
 }
 
 .coming-soon-card {
     background: linear-gradient(145deg, #1a1a1a, #000) !important;
-    border: 1px dashed #ffcc00 !important;
+    border: 1px dashed var(--red) !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -817,7 +841,7 @@ background:#eab308;
     gap: 10px;
     margin: 15px 0;
     font-family: monospace;
-    color: #ffcc00;
+    color: var(--text);
 }
 
 .countdown-timer div {
@@ -825,6 +849,7 @@ background:#eab308;
     flex-direction: column;
     font-size: 18px;
     font-weight: bold;
+    color: var(--red);
 }
 
 .countdown-timer small {
@@ -837,14 +862,14 @@ background:#eab308;
     width: 100%;
     padding: 10px;
     background: transparent;
-    border: 1px solid #ffcc00;
-    color: #ffcc00;
+    border: 1px solid var(--red);
+    color: var(--red);
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
 }
 
 .early-btn:hover {
-    background: #ffcc00;
-    color: #000;
+    background: var(--red);
+    color: white;
 }
